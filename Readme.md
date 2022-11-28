@@ -1,0 +1,1 @@
+Proyecto ejemplo aplicando técnicas de reconocimiento facial.
