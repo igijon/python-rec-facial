@@ -45,47 +45,15 @@ def show_imgs(fotos_list):
     for index, f in enumerate(fotos_list):
         cv2.imshow(f'Foto {index}', f)
 
-
+# Por defecto, el valor de la distancia para determinar si es true o false es 0.6
 def compare_all_with_control(cara_cod_list):
     results = []
     for i,fc in enumerate(cara_cod_list):
         if i > 0:
-            results.append(fr.compare_faces([cara_cod_list[0]], fc))
+            # Con fr.compare_faces([control_cod], cara_cod_comparar, 0.3) podemos modificar el límite por el que determinaría si es true
+            diferencias = {'misma_cara': fr.compare_faces([cara_cod_list[0]], fc),
+                           'distancia': fr.face_distance([cara_cod_list[0]], fc)}
+            results.append(diferencias)
+
     return results
-
-
-
-# foto_control = fr.load_image_file(Path('fotos', 'foto1.jpg'))
-# foto_prueba = fr.load_image_file(Path('fotos', 'foto2.jpg'))
-
-# foto_control = cv2.cvtColor(foto_control, cv2.COLOR_BGR2RGB)
-# foto_prueba = cv2.cvtColor(foto_prueba, cv2.COLOR_BGR2RGB)
-
-# Localizar cara de control
-#lugar_cara_1 = fr.face_locations(foto_control)[0]
-#lugar_cara_2 = fr.face_locations(foto_prueba)[0]
-#cara_codificada_1 = fr.face_encodings(foto_control)[0]
-#cara_codificada_2 = fr.face_encodings(foto_prueba)[0]
-
-#print(lugar_cara_1[3], lugar_cara_1[0])
-# Mostrar rectángulo
-#cv2.rectangle(foto_control,
- #             (lugar_cara_1[3], lugar_cara_1[0]),
- #             (lugar_cara_1[1], lugar_cara_1[2]),
- #             (0, 255, 0), 2)
-
-#cv2.rectangle(foto_prueba,
-  #            (lugar_cara_2[3], lugar_cara_2[0]),
-  #            (lugar_cara_2[1], lugar_cara_2[2]),
-  #            (0, 255, 0), 2)
-
-# Realizar comparación
-#resultado = fr.compare_faces([cara_codificada_1], cara_codificada_2)
-#print(resultado)
-
-# Mostrar imágenes
-# cv2.imshow('Foto Control', foto_control)
-# cv2.imshow('Foto Prueba', foto_prueba)
-
-# Mantener el programa abierto
 
