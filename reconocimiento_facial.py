@@ -53,7 +53,16 @@ def compare_all_with_control(cara_cod_list):
             # Con fr.compare_faces([control_cod], cara_cod_comparar, 0.3) podemos modificar el límite por el que determinaría si es true
             diferencias = {'misma_cara': fr.compare_faces([cara_cod_list[0]], fc),
                            'distancia': fr.face_distance([cara_cod_list[0]], fc)}
-            results.append(diferencias)
+        elif i == 0:
+            diferencias = { 'misma_cara': 'control',
+                            'distancia': '0'}
+        results.append(diferencias)
 
     return results
 
+def show_results(fotos_list, results):
+    for d,f in zip(results, fotos_list):
+        resultado = d['misma_cara']
+        distancia = d['distancia'][0]
+        cv2.putText(f, f'{resultado} :::: {distancia}',
+                    (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
